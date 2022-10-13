@@ -1,0 +1,40 @@
+﻿@model List<FAQ.Models.Questions>
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_IndexLayout.cshtml";
+}
+
+
+
+
+<div class="p3 baymax line-height-4">
+    <div class="max-width-4 mx-auto">
+        <nav class="lg-flex md-flex items-center justify-between mb3">
+
+        </nav>
+
+        <header class="page-header mb3">
+            <h2 class="display">Search results</h2>
+            <p class="page-header-description">@Model.Count results for "@ViewBag.word"</p>
+        </header>
+
+        <div class="search-results">
+            <section class="search-results-column py1">
+
+                @foreach (var item in Model)
+                {
+                <div class="mb3">
+                    <h3 class="huge">
+                        <a href="/Home/QuestionDetails/@item.Question_ID" class="display strong text-blue link-quiet">@item.Question_Title</a>
+                    </h3>
+                    <div class="big quieter">@item.Question_Details</div>
+                    @*<div class="big quieter">You can also remove a <em>sort</em> criterion by tapping the "X" to the right of the <em>sort</em> criterion.</div>*@
+
+                </div>
+                }
+                
+
+            </section>
+        </div>
+    </div>
+</div>

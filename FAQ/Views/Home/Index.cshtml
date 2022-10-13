@@ -1,0 +1,153 @@
+﻿@model FAQ.ViewModel.IndexModel
+@{
+    Layout = "~/Views/Shared/_IndexLayout.cshtml";
+    int i = 1;
+}
+
+
+
+
+
+<main role="main">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="~/Content/css/HelpCenter.css">
+    <link rel="stylesheet" href="~/Content/css/HelpCenter2.css">
+    <link rel="stylesheet" href="~/Content/css/Footer.css">
+
+
+
+
+
+    <div class="jumbotron jumbotron-fluid"
+         style="text-align: center; margin: 0; background-image: url(/Content/img/1container-ship-3500x1968.jpg); background-repeat: no-repeat; background-size: cover; background-color: #fff;">
+        <div class="container">
+            <h1 class="mb3 text-white">How can we help?</h1>
+            <div class="lg-col-10 md-col-12 col-12 flex">
+
+                @using (Html.BeginForm("Search", "Home", FormMethod.Get, new { @class = "search" }))
+                {
+
+                    <input type="text" name="word" placeholder="Search the help center" autocomplete="off" aria-label="Search the help center">
+
+                }
+            </div>
+        </div>
+    </div> @*Search input*@
+
+    <div class="container-fluid" style="background-color: #f3f5fb; padding: 5em 0em;">
+
+        <div class="container">
+            <div class="row">
+                @foreach (var item in Model.CategoryList.Where(x => x.IsActive == true).Take(4))
+                {
+
+
+                    <div class="col-lg m-1 p-1">
+                        <div class="card flex-lg flex-fill">
+                            <img class="card-img-top mw-150 img-responsive flex-auto d-none d-md-block" src="@item.Img_Url" alt="Card image" style="width:auto;height:150px">
+                            <div class="card-body">
+                                <h4 class="card-title">@item.Category_Name</h4>
+                                <p class="card-text">@item.Category_Description</p>
+                                <a href="/Home/CategoryDetails/@item.Category_ID" class="btn btn-warning stretched-link mt-1 " style="min-width:100%; margin:0em;">View Questions</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div> @*Top Categories*@
+    </div>
+
+    <div class="container-fluid" style="margin: 5em 0em;">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 mb-2 mt-2">
+                    <h2> Popular articles</h2>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg">
+                            <ul class="list-group list-group-flush">
+                                @foreach (var item in Model.QuestionList.OrderByDescending(x => x.Reading_Count).Take(10).ToList())
+                                {
+                                    <li class="list-group-item"><a href="/Home/QuestionDetails/@item.Question_ID">@item.Question_Title → @item.Question_Details</a></li>
+                                }
+
+
+                            </ul>
+                        </div>
+                        @*<div class="col-lg">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item"><a href="https://support.airtable.com/hc/en-us/articles/360021678853">Linked record field overview →</a></li>
+                                    <li class="list-group-item"><a href="https://support.airtable.com/hc/en-us/articles/202624339">Exporting records to CSV →</a></li>
+                                    <li class="list-group-item"><a href="https://support.airtable.com/hc/en-us/articles/216108577">Adding a new record →</a></li>
+                                    <li class="list-group-item"><a href="https://support.airtable.com/hc/en-us/articles/223374668">Changing the primary field →</a></li>
+                                    <li class="list-group-item"><a href="https://support.airtable.com/hc/en-us/articles/202887099">Permissions overview →</a></li>
+                                </ul>
+                            </div>*@
+
+                    </div>
+                </div> @*Popular articles*@
+                <div class="col-lg-4 mb-2 mt-2">
+                    <h2>
+                        Sub Categories
+                    </h2>
+                    <br>
+                    <div class="container mt-3">
+                        <div class="list-group">
+                            @foreach (var item in Model.CategoryList.Where(x => x.Category_Parent_ID != null))
+                            {
+                                <a href="/Home/CategoryDetails/@item.Category_ID" class="list-group-item list-group-item-action"><span class="badge badge-light badge-pill">#@i</span>@item.Category_Name</a>
+                                {i++;
+                                }
+                            }
+
+
+                        </div>
+                    </div>
+                </div> @*Trending topics*@
+            </div>
+        </div>
+    </div>
+
+
+    <br>
+
+    <div class="container-fluid" style="background-color: #f3f5fb; padding: 5em 0em;">
+        <div class="container">
+            <div class="row mb-2">
+                @foreach (var item in Model.QuestionList)
+                {
+
+
+                    <div class="col-lg-6 d-flex">
+                        <div class="card flex-md-row flex-fill mb-4 box-shadow h-md-250" style="max-height: 300px;">
+                            <div class="card-body flex-fill" >
+                                <p class="quiet small">FEATURED ✨</p>
+                                <h4>
+                                    <a class="text-dark" href="/Home/QuestionDetails/@item.Question_ID">@item.Question_Title</a>
+                                </h4>
+                                <p class="card-text mb-auto">@item.Question_Details</p><br>
+                                <a class="align-baseline" href="/Home/QuestionDetails/@item.Question_ID">View Article </a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+            
+        </div>
+    </div> @*Featured*@
+
+</main>
+
+
+
+
+
+

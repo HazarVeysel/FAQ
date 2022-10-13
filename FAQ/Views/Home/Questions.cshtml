@@ -1,0 +1,59 @@
+﻿@model List<FAQ.Controllers.QuestionCategory>
+@{
+    ViewBag.Title = "AdminPanel";
+    Layout = "~/Views/Shared/_IndexLayout.cshtml";
+    //HelpCenter hp = new HelpCenter();
+}
+<div class="p3 baymax darken1">
+    <div class="max-width-4 mx-auto">
+        <nav class="flex items-center justify-between mb3">
+            <ol class="breadcrumbs">
+
+                <li title="Home">
+
+                    <a href="/">Home</a>
+
+                </li>
+
+                <li title="All Questions">
+
+                    <a href="/Home/Questions">All Questions</a>
+
+                </li>
+                <li style="display:none" title="All Questions">
+
+                    <a href="/Home/Questions">All Questions</a>
+
+                </li>
+
+            </ol>
+
+        </nav>
+        <header class="display huge mb2">
+            <span class="display-4">
+                Questions
+
+            </span>
+
+        </header>
+        @foreach (var item in Model)
+        {
+
+            <header class="display huge mb2">
+                <h3>
+                    @item.Question_Title
+
+                </h3>
+
+                <div>
+
+                    <div class="mb2">
+
+                        <a href="/Home/QuestionDetails/@item.Question_ID" class="link-quiet text-blue pointer">@item.Question_Details</a>
+                    </div>
+
+                </div>
+            </header>
+        }
+    </div>
+</div>

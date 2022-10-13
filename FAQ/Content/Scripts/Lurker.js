@@ -1,0 +1,24 @@
+﻿/*
+
+    Greetings sourcecode lurker!
+
+    This is for internal Zendesk and legacy usage,
+    we don't support or guarantee any of these values
+    so please don't build stuff on top of them.
+
+  */
+
+HelpCenter = {};
+
+
+HelpCenter.internal = {
+    "asset_url": "//static.zdassets.com/hc/assets/", "web_widget_asset_composer_url": "https://static.zdassets.com/ekr/snippet.js", "current_session": { "locale": "en-us", "csrf_token": null, "shared_csrf_token": null },
+    "settings": {},
+    "usage_tracking":
+        { "event": "front_page_viewed", "data": "BAh7BjoKX21ldGF7CzoPYWNjb3VudF9pZGkDQWwJOhNoZWxwX2NlbnRlcl9pZGkEPxjtCzoNYnJhbmRfaWRpA7miAzoMdXNlcl9pZDA6E3VzZXJfcm9sZV9uYW1lSSIOQU5PTllNT1VTBjoGRVQ6C2xvY2FsZUkiCmVuLXVzBjsLVA==--5ea65799f98da9c603bde5e33f7a5776a33558dd", "url": "#" },
+    "current_record_id": null, "current_record_url": null, "current_record_title": null, "search_results_count": null, "current_text_direction": "ltr", "current_brand": { "id": 238265, "account_id": 617537, "name": "Airtable Support", "active": true, "deleted_at": null, "created_at": "2014-11-17T19:29:30Z", "updated_at": "2020-08-11T02:44:41Z", "route_id": 511996, "signature_template": "{{agent.signature}}\r\n\r\n\r\n\u0026nbsp;\r\n\r\n[Live trainings](#) · [Help Center](#) · [Community](#) · [Getting started](#) · [Templates](#) · [Billing FAQs](#)" },
+    "current_brand_url": "#", "current_host_mapping": "support.airtable.com", "current_path": null, "authentication_domain": "#", "show_autocomplete_breadcrumbs": true, "rollbar_config": { "enabled": true, "endpoint": "#", "accessToken": "731a5a953e9a4b7ab6cac9623f50c732", "captureUncaught": true, "captureUnhandledRejections": true, "payload": { "environment": "production", "client": { "javascript": { "source_map_enabled": true, "code_version": "9f81ece56988c7bd5cc4b52c342e49c6943a616e", "guess_uncaught_frames": true } } } },
+    "user_info_changing_enabled": false, "has_user_profiles_classic_override": false, "has_user_profiles_enabled": false, "has_end_user_attachments": true, "user_aliases_enabled": false, "has_anonymous_kb_voting": true, "has_multi_language_help_center": true, "mobile_device": false, "mobile_site_enabled": false, "show_at_mentions": false, "embeddables_config": { "embeddables_web_widget": false, "embeddables_connect_ipms": false },
+    "base_domain": "zendesk.com", "answer_bot_subdomain": "static", "manage_content_url": "#", "arrange_content_url": "#", "general_settings_url": "#", "user_segments_url": "#", "has_gather": true, "has_community_enabled": false, "has_community_badges": true, "has_content_tags": false, "has_user_segments": true, "has_answer_bot_web_form_enabled": false, "has_answer_bot_web_form_modal_v2": false, "has_edit_user_profile_v2": true, "billing_url": "/access/return_to?return_to=https%3A%2F%2Fairtable.zendesk.com%2Fadmin%2Fbilling%2Fsubscription", "is_account_owner": false, "theming_cookie_key": "hc-da39a3ee5e6b4b0d3255bfef95601890afd807091-preview", "is_preview": false, "has_guide_user_segments_search": true, "has_alternate_templates": true, "arrange_articles_url": "#", "article_verification_url": "#", "has_article_verification": true, "guide_language_settings_url": "#", "docs_importer_url": "#", "community_badges_url": "#", "community_settings_url": "#", "gather_plan_state": "subscribed", "search_settings_url": "#", "has_multibrand_search_in_plan": true, "theming_api_version": 1, "theming_settings":
+        { "color_1": "#3276dc", "color_2": "#ffffff", "color_3": "#333333", "color_4": "#3276dd", "color_5": "#ffffff", "font_1": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif", "font_2": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif", "logo": "//theme.zdassets.com/theme_assets/617537/4252b4e337d164c3891d9bae7d74532c47c38659.png", "favicon": "//theme.zdassets.com/theme_assets/617537/e9d3763a5a5adcea2a8d03d5857c1a6a2d42f08b.png", "homepage_background_image": "//theme.zdassets.com/theme_assets/617537/80b6f5b5ab7e64e47b3098214dafde1deed3b0ec.svg", "community_background_image": "//theme.zdassets.com/theme_assets/617537/ea0fc49e94c74884940bd530924916ea87035a5f.svg", "community_image": "//theme.zdassets.com/theme_assets/617537/e58c5e8c3ebf94cbbc4d3669def0adbd7d0ff479.svg" }, "has_pci_credit_card_custom_field": true, "current_brand_id": 238265, "help_center_restricted": false, "current_brand_active": true, "is_assuming_someone_else": false, "flash_messages": [], "user_photo_editing_enabled": true, "has_end_user_apps": false, "has_docs_importer": false, "has_sunco_widget_kill_switch": false, "gather_user_image_upload_via_aus": false, "user_preferred_locale": "en-us"
+};

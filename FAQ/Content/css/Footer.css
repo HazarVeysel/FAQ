@@ -1,0 +1,12 @@
+﻿
+body > footer {
+    background-color: #f9f9f9;
+    padding: 5% 5%;
+}
+
+a.link {
+    cursor: pointer;
+    color: #000;
+}
+
+

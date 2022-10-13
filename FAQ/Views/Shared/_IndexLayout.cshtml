@@ -1,0 +1,106 @@
+﻿
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+    <meta charset="utf-8" />
+    <!-- v21029 -->
+
+    <title>Batı Logistic Support</title>
+
+    <meta name="csrf-param" content="authenticity_token" />
+    <meta name="csrf-token" content="" />
+
+    <link rel="canonical" href="#" />
+    <link rel="alternate" hreflang="en" href="#" />
+
+    <link rel="stylesheet" media="all" href="//static.zdassets.com/hc/assets/application-eee6d8d7fa05e7e79d4f3bfce1e548f7.css" id="stylesheet" />
+  
+    <link rel="stylesheet" media="all" href="//static.zdassets.com/hc/assets/theming_v1_support-cf937686d5b6669242017892da7bad78.css" />
+    <link rel="stylesheet" type="text/css" href="//p23.zdassets.com/hc/theming_assets/617537/238265/style.css?digest=5100589154839">
+
+    <link rel="shortcut icon" type="image/x-icon" href="//theme.zdassets.com/theme_assets/617537/e9d3763a5a5adcea2a8d03d5857c1a6a2d42f08b.png" />
+
+
+    <script src="//static.zdassets.com/hc/assets/jquery-d5395f0b7ac5027403fc17855c46dbfc.js"></script>
+
+
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.1.0/mustache.min.js"
+            integrity="sha256-MPgtcamIpCPKRRm1ppJHkvtNBAuE71xcOM+MmQytXi8=" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"
+            integrity="sha256-LSUpTY0kkXGKvcBC9kbmgibmx3NVVgJvAEfTZbs51mU=" crossorigin="anonymous"></script>
+
+    @*<link rel="stylesheet" href="//theme.zdassets.com/theme_assets/617537/cef971f997d0cb9ee883514d4bace18ba90a34bf.css">*@
+    <!-- add jquery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+            crossorigin="anonymous"></script>
+    <!-- bxSlider Javascript file -->
+    <script src="//theme.zdassets.com/theme_assets/617537/0e0e10363b2797d03b5100203043ff31a4933a61.js"></script>
+    <!-- bxSlider CSS file -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.css" rel="stylesheet" />
+    <!-- load stylesheets everywhere -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Bootstrap framework CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+
+    <!-- smooth-scroll Javascript file -->
+    <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll@15/dist/smooth-scroll.polyfills.min.js"></script>
+
+    <!-- showdown (markdown to html) Javascript file -->
+    <script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
+
+</head>
+<body class="">
+    @Html.Partial("LayoutPartials/_Header")
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > 50) {
+                    document.getElementById('navbar_top').classList.add('fixed-top');
+                    // add padding top to show content behind navbar
+                    navbar_height = document.querySelector('.navbar').offsetHeight;
+                    document.body.style.paddingTop = navbar_height + 'px';
+                } else {
+                    document.getElementById('navbar_top').classList.remove('fixed-top');
+                    // remove padding top from body
+                    document.body.style.paddingTop = '0';
+                }
+            });
+        });
+
+
+                                // DOMContentLoaded  end
+    </script>
+
+
+    @RenderBody()
+
+
+    <body>
+        <script src="https://5vv477bkm0kl.statuspage.io/embed/script.js"></script>
+    </body>
+
+
+    <!-- / -->
+
+
+    <script src="//static.zdassets.com/hc/assets/en-us.3307f6173d0f77e3c59f.js"></script>
+
+
+    <script src="~/Content/Scripts/Lurker.js"></script>
+
+
+    <script src="//static.zdassets.com/hc/assets/moment-f6f8513da6ab17eadada59a1a4edb536.js"></script>
+    <script src="//static.zdassets.com/hc/assets/hc_enduser-6b30095d279c9a551824f43dc9287269.js"></script>
+
+    @Html.Partial("LayoutPartials/_Footer")
+
+</body>
+</html>

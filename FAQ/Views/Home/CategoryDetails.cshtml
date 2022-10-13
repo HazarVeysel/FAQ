@@ -1,0 +1,129 @@
+﻿@model  FAQ.ViewModel.IndexModel
+@{
+    Layout = "~/Views/Shared/_IndexLayout.cshtml";
+    
+}
+
+
+<main role="main">
+    <div class="p3 baymax darken1">
+        <div class="max-width-4 mx-auto">
+            <nav class="flex items-center justify-between mb3">
+
+                <ol class="breadcrumbs">
+
+                    <li title="Home">
+
+                        <a href="/">Home</a>
+
+                    </li>
+
+                    <li title="All Questions">
+
+                        <a href="/Home/Categories">All Categories</a>
+
+                    </li>
+
+
+                </ol>
+            </nav>
+            <header class="display huge mb2">
+
+                <h2>
+                    @Model.Category.Category_Name
+
+                </h2>
+
+
+
+            </header>
+
+
+            <div class="flex flex-wrap mxn2">
+                @if (Model.CategoryList.Count !=  0 )
+                {
+
+
+                    foreach (var item in Model.CategoryList)
+                    {
+                        <section class="lg-col-6 md-col-6 sm-col-12 xs-col-12 p2 mb3">
+                            <div class="col-12">
+
+                                <h4 class="stronger mb2">
+                                    <a href="/Home/CategoryDetails/@item.Category_ID">@item.Category_Name</a>
+
+                                </h4>
+
+                                @foreach (var item2 in Model.QuestionList.Where(x => x.Category_ID == item.Category_ID))
+                                {
+                                    <div>
+
+                                        <div class="mb2 flex items-center">
+
+                                            <h3>
+                                                <a href="/Home/QuestionDetails/@item2.Question_ID" class="link-quiet text-blue ml-2">@item2.Question_Title</a>
+                                            </h3>
+                                        </div>
+                                        <div class="ml3 flex items-center">
+                                            <h6>@item2.Question_Details</h6>
+                                        </div>
+                                    </div>
+                                    <br />
+                                }
+
+                                @*<a href="/hc/en-us/sections/205004547-Billing" class="small quiet link understroke">
+                            See all 6 articles
+                        </a>*@
+
+
+                            </div>
+                        </section>
+                    }
+                }
+                else
+                {
+                    <section class="lg-col-6 md-col-6 sm-col-12 xs-col-12 p2 mb3">
+                        <div class="col-12">
+
+                            @foreach (var item2 in Model.QuestionList.Where(x => x.Category_ID == Model.Category.Category_ID))
+                            {
+                                <div>
+
+                                    <div class="mb2 flex items-center">
+
+                                        <h3>
+                                            <a href="/Home/QuestionDetails/@item2.Question_ID" class="link-quiet text-blue ml-2">@item2.Question_Title</a>
+                                        </h3>
+                                    </div>
+                                    <div class="ml3 flex items-center">
+                                        <h6>@item2.Question_Details</h6>
+                                    </div>
+                                </div>
+                                <br />
+                            }
+
+                            @*<a href="/hc/en-us/sections/205004547-Billing" class="small quiet link understroke">
+                        See all 6 articles
+                    </a>*@
+
+
+                        </div>
+                    </section>
+                }
+            </div>
+        </div>
+    </div>
+</main>
+
+<style>
+    body > footer {
+        background-color: #f9f9f9;
+        padding: 5% 5%;
+    }
+
+    a.link {
+        cursor: pointer;
+        color: #000;
+    }
+</style>
+

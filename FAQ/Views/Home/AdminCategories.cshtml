@@ -1,0 +1,431 @@
+﻿@*@using FAQ.Entities*@
+@model FAQ.ViewModel.categoryListViewModel
+@{
+    ViewBag.Title = "AdminPanel";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    //HelpCenter hp = new HelpCenter();
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="display-3">Categories Management</h1>
+            </div>
+            <!--<div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">-->
+            @*<li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">Projects</li>*@
+            <!--<a class="btn btn-warning btn-sm" style="font-size:20px" href="/AdminDepartment/AddDepartment">
+                        <i class="fas fa-pencil-alt">
+
+                        </i>
+                        Add New Department
+                    </a>
+
+                </ol>
+            </div>-->
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-3">
+                <!-- general form elements -->
+                <div class="card card-success">
+                    <div class="card-header">
+                        <h3 class="card-title">Add Category</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    @*<form name="cat_frm" id="cat_frm" method="post" action="/Home/AddNewCategory" enctype="multipart/form-data">*@
+                    @using (Html.BeginForm("AddNewCategory", "Home", FormMethod.Post, new { @enctype = "multipart/form-data", @name = "cat_frm", @id = "cat_frm" }))
+                    {
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="CategoryName">Category Name</label>
+                                @*@Html.TextBoxFor(x => x.Category.Category_Name, new { @class = "form-control", @type = "text", @id="Category_Name", @name = "cat_name", @required = "" })*@
+
+                                <input type="text" class="form-control" id="Category_Name" name="Category_Name" placeholder="Enter Category Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="CategoryDecription">Category Decription</label>
+                                @*@Html.TextBoxFor(x => x.Category.Category_Description, new { @class = "form-control", @name = "cat_desc", @required = "required" })*@
+
+                                <input type="text" class="form-control" id="Category_Description" name="Category_Description" placeholder="Description" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="CategoryParentSelect">Category Parent</label>
+                                @Html.DropDownListFor(x => x.Category.Category_Parent_ID, (List<SelectListItem>)ViewBag.vlc, "Select Parent", new { @class = "form-control custom-select" })
+
+                                @*<select class="form-control" id="CategoryParentSelect">
+                                        @foreach (var item in hp.CategoryList())
+                                        {
+                                            <option value="@item.CategoryID">@item.CategoryName</option>
+                                        }
+                                    </select>*@
+                            </div>
+                            <div class="form-group">
+                                <label for="CategoryImg">Category Image</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="Img_Url" name="Img_Url" onchange="LoadImage(this, 0)" preview>
+                                        <label class="custom-file-label" id="Img_Url2" name="Img_Url2" for="Img_Url">Chose Image</label>
+                                        @*@Html.EditorFor(x=>x.Category.Img_Url, new { @type="file" })*@
+                                    </div>
+
+                                    @*<div class="input-group-append">
+                                            <span class="input-group-text">Upload</span>
+                                        </div>*@
+                                </div>
+                                <div class="hide mt-4">
+                                    <img alt="Category" class="card-img-top text-center img-fluid col-5" id="targetImag" src="~/CategoryImage/category.png">
+                                </div>
+                                @*<span class="mailbox-attachment-icon has-img"><img src="Html.Raw(item.Message_Image4)" alt="Attachment"></span>
+                                    <div class="mailbox-attachment-info">
+                                        <a href="(item.Message_Image4)" target="_blank" class="mailbox-attachment-name"><i class="fas fa-camera"></i> (item.Message_Image4.Replace("/MessageImage/",""))</a>
+                                        <span class="mailbox-attachment-size clearfix mt-1">
+                                            <span class="fileSizeProperties"></span>
+                                            <a href="(item.Message_Image4)" class="btn btn-default btn-sm float-right downloadImage"><i class="fas fa-cloud-download-alt"></i></a>
+                                        </span>
+                                    </div>*@
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <button type="submit" id="addCategory" class="btn btn-success">Submit</button>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-md-9">
+                <!-- Form Element sizes -->
+                <div class="card sm card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Categories</h3>
+                    </div>
+                    <div class="card-body p-0">
+                        <table class="table table-striped projects">
+                            <thead>
+                                <tr>
+                                    <th style="width: 1%">
+                                        ID
+                                    </th>
+                                    <th style="width: 20%" class="text-nowrap">
+                                        Category Name
+                                    </th>
+                                    <th style="width: 30%" class="text-center text-nowrap">
+                                        Category Description
+                                    </th>
+                                    <th style="width: 5%" class="text-center text-nowrap">
+                                        Category Photo
+                                    </th>
+                                    <th style="width: 5%" class="text-center text-nowrap">
+                                        Parent Category
+                                    </th>
+                                    <th style="width: 15%" class="text-center text-nowrap">
+                                        <span>Create Date</span>
+                                    </th>
+                                    <th style="width: 10%">
+                                        Activity
+                                    </th>
+
+                                    <th style="width: 25%" class="text-center">
+                                        Action
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach (var item in Model.CategoryList)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.Category_ID
+                                        </td>
+                                        <td>
+                                            <a>
+                                                @item.Category_Name
+                                            </a>
+                                        </td>
+                                        <td class="project-state">
+                                            <a> @item.Category_Description</a>
+                                        </td>
+                                        <td>
+                                            @* Yapılacak *@
+                                            <ul class="list-inline">
+                                                <li class="list-inline-item">
+                                                    <img alt="Category" class="img-size-64 text-center" src=" @item.Img_Url">
+                                                </li>
+                                            </ul>
+                                        </td>
+                                        <td>
+                                            <a>
+                                                @(item.Categories2!=null?item.Categories2.Category_Name:"-")
+                                            </a>
+                                        </td>
+                                        <td class="text-center text-nowrap">
+                                            <a>
+                                                <span>@(((DateTime)item.Create_Date).ToString("dd MMMMM yyyy-HH:mm"))</span>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-info" style="font-size:15px" activity>
+                                                @(item.IsActive==true? "Active" : "Passive")
+                                            </span>
+                                        </td>
+                                        <td class="project-actions text-right text-nowrap">
+
+                                            <button class="btn btn-warning btn-sm" id="editbtn" style="font-size:15px" data-id="@item.Category_ID" edit-button>
+                                                <i class="fas fa-pencil-alt">
+                                                </i>
+                                                Edit
+                                            </button>
+                                            @*@if (item.IsActive == false)
+                                                {*@
+
+                                            <a class="btn @(item.IsActive == false ? "btn-success" : "btn-danger") btn-sm" style="font-size:15px; width:6em" data-id="@item.Category_ID" data-isActive="@item.IsActive" buttonActivePassive @*href="/Home/ActivateCategory/@item.Category_ID"*@>
+                                                <i class="fas @(item.IsActive == false ? "fa-plus" : "fa-trash")"></i>
+                                                <span>@(item.IsActive==true? "Passivate" : "Activate")</span>
+                                            </a>
+                                            @*}*@
+                                            @*else
+                                                {
+                                                    <a class="btn btn-danger btn-sm" style="font-size:15px" href="/Home/PassivateCategory/@item.Category_ID">
+                                                        <i class="fas fa-trash">
+                                                        </i>
+                                                        Passivate
+                                                    </a>
+                                                }*@
+                                        </td>
+                                    </tr>
+
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<span id="guncellemepartial"></span> @*Modal'a yüklenecek olan html önce buranın içine yükleniyor.*@
+
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+
+            $(".hide").hide()
+            $("[preview]").mousedown(function () {
+                $(".hide").show("fast")
+            })
+            $("#editbtn").mouseenter(function () {
+                $(".hide").hide("fast")
+            })
+            $("[buttonActivePassive]").click(function () {
+
+
+                var tiklananID = parseInt($(this).data("id"));
+
+                var $butonum = $(this);
+
+
+
+                $.ajax({
+                    url: '/Home/ActivePassive',
+                    data: { ID: tiklananID },
+                    type: 'POST',
+                    success: function (response) {
+                        //console.log(response);
+
+
+                        if (response == true) {
+
+                            console.log($butonum.children());
+
+
+                            $butonum.removeClass("btn-success").addClass("btn-danger");
+                            $butonum.find("i").removeClass("fa-plus").addClass("fa-trash");
+                            $butonum.find("span").text("Passivate");
+                            $butonum.parent().prev().find("span").text("Active");
+
+
+                        }
+                        if (response == false) {
+
+                            $butonum.removeClass("btn-danger").addClass("btn-success");
+                            $butonum.find("i").removeClass("fa-trash").addClass("fa-plus");
+                            $butonum.find("span").text(" Activate");
+                            $butonum.parent().prev().find("span").text("Passive");
+
+                        }
+                    }
+                });
+
+
+            });
+
+
+            function validateCategoryControlForm() {
+
+                $('form').each(function () {
+                    $(this).validate({
+
+                        rules: {
+                            Category_Name: {
+                                minlength: 2,
+                                maxlength: 50,
+                            },
+                            Category_Description: {
+                                minlength: 2,
+                                maxlength: 100,
+                            }
+                        },
+                        messages: {
+                            Category_Name: {
+                                required: "Please enter the category name",
+                                minlength: "Name at least 2 characters",
+                                maxlength: "Name must be less than 50 characters"
+                            },
+                            Category_Description: {
+                                required: "Please enter the category description",
+                                minlength: "Description at least 2 characters",
+                                maxlength: "Description must be less than 100 characters"
+                            },
+                        },
+                        submitHandler: function (form) {
+                            form.submit();
+                        }
+                    })
+                });
+                //$("#edit_frm").validate({
+                //    rules: {
+                //        Category_Name: {
+                //            minlength: 2,
+                //            maxlength: 5,
+                //        },
+                //        Category_Description: {
+                //            minlength: 2,
+                //            maxlength: 10,
+                //        }
+                //    },
+                //    messages: {
+                //        Category_Name: {
+                //            required: "Please enter the category name",
+                //            minlength: "Name at least 2 characters",
+                //            maxlength: "Name must be less than 50 characters"
+                //        },
+                //        Category_Description: {
+                //            required: "Please enter the category description",
+                //            minlength: "Description at least 2 characters",
+                //            maxlength: "Description must be less than 100 characters"
+                //        },
+                //    },
+                //    submitHandler: function (form) {
+                //        form.submit();
+                //    }
+                //})
+            }
+            validateCategoryControlForm(); //Bu silinmeyecek, add category kısmında bu çalışıyor.
+
+            $(document).delegate("#editCategory", "click", function () {
+                validateCategoryControlForm();
+            });
+            $("[edit-button]").click(function () {
+                var id = $(this).data("id");
+                $("#guncellemepartial").load("/Home/partialcagir?id=" + id, function (responseTxt, statusTxt, xhr) {
+                    if (statusTxt == "success")
+                        $("#modal-warning").modal("show");
+                    if (statusTxt == "error")
+                        alert("Error: " + xhr.status + ": " + xhr.statusText);
+                });
+            })
+        })
+
+
+
+        function LoadImage(input,durum) {
+
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+             
+                reader.onload = function (e) {
+
+
+                    if (durum==0) {
+                        $("#targetImag").attr("src", e.target.result);
+                    } else {
+                        $("#targetImage").attr("src", e.target.result);
+                    }
+
+
+                };
+
+
+
+                reader.readAsDataURL(input.files[0]);
+
+            }
+        }
+    </script>
+
+
+}
+@*@section scripts {
+        <script>
+
+            $(function () {
+
+
+
+                $("#addCategory").click(function () {
+
+                    var categoryName = $("#CategoryName").val();
+                    var categoryDescription = $("#CategoryDecription").val();
+                    var categoryParent = parseInt($("#CategoryParentSelect").val());
+                    var categoryImage = $('#CategoryImg').prop('files')[0];
+
+                    var data = new FormData();
+                    data.append("Category_Name", categoryName);
+                    data.append("Category_Description", categoryDescription);
+                    data.append("Category_Parent_ID", categoryParent);
+                    data.append('Img_Url', $('#CategoryImg')[0].files[0]);
+
+                    //var send_data = {
+                    //    Category_Name: categoryName,
+                    //    Category_Description: categoryDescription,
+                    //    Category_Parent_ID:categoryParent,
+                    //    Img_Url:categoryImage
+                    //}
+
+
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/Home/AddNewCategory",
+                        data: data,
+                        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                        success: function (msg) {
+                            alert("Başarılı");
+                        }
+                    });
+
+                });
+
+
+            });
+
+        </script>
+    }*@
+

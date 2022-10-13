@@ -1,0 +1,93 @@
+﻿@model FAQ.ViewModel.categoryListViewModel
+@{
+    ViewBag.Title = "AdminPanel";
+    Layout = "~/Views/Shared/_IndexLayout.cshtml";
+    //HelpCenter hp = new HelpCenter();
+}
+<main role="main">
+    <div class="p3 baymax darken1">
+        <div class="max-width-4 mx-auto">
+            <nav class="flex items-center justify-between mb3">
+                <ol class="breadcrumbs">
+
+                    <li title="Home">
+
+                        <a href="/">Home</a>
+
+                    </li>
+                    <li title="All Categories">
+
+                        <a href="/Home/Categories">All Categories</a>
+
+                    </li>
+
+                    <li style="display:none" title="All Categories">
+
+                        <a href="/Home/Categories">All Categories</a>
+
+                    </li>
+
+
+                </ol>
+
+            </nav>
+            <header class="display huge mb2">
+                <span class="display-4" >
+                    Categories
+
+                </span>
+
+            </header>
+
+
+            <div class="flex flex-wrap mxn2">
+                @foreach (var item in Model.CategoryList.Where(x => x.Category_Parent_ID == null))
+                {
+                    <section class="lg-col-6 md-col-6 sm-col-12 xs-col-12 p2 mb3">
+                        <div class="col-12">
+
+                            <h4 class="stronger mb2">
+                                <a href="/Home/CategoryDetails/@item.Category_ID">@item.Category_Name</a>
+
+                            </h4>
+
+                            @foreach (var item2 in Model.CategoryList.Where(x => x.Category_Parent_ID != null && x.Category_Parent_ID==item.Category_ID))
+                            {
+                            <div>
+
+                                <div class="mb2 flex items-center">
+
+                                    <h3>
+                                        <a href="/Home/CategoryDetails/@item2.Category_ID" class="link-quiet text-blue ml-2">@item2.Category_Name</a>
+                                    </h3>
+                                </div>
+
+                            </div>
+                            }
+
+                            @*<a href="/hc/en-us/sections/205004547-Billing" class="small quiet link understroke">
+                        See all 6 articles
+                    </a>*@
+
+
+                        </div>
+                    </section>}
+
+            </div>
+        </div>
+    </div>
+</main>
+
+<style>
+    body > footer {
+        background-color: #f9f9f9;
+        padding: 5% 5%;
+    }
+
+    a.link {
+        cursor: pointer;
+        color: #000;
+    }
+</style>
+
+

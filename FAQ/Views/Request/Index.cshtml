@@ -1,0 +1,279 @@
+﻿@*@model List<EntityLayer.Concrete.ReqMesClass>*@
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@{ 
+    string color = "";
+}
+
+
+<div class="card-header">
+    <h1 class="card-title"><b>Active Requests</b></h1>
+</div>
+<div class="card-body p-0">
+    <table class="table table-striped projects">
+        <thead>
+            <tr>
+                <th style="width: 0%">
+                    ID
+                </th>
+                <th style="width: 13%">
+                    Requester
+                </th>
+                <th style="width: 4%">
+                    Priority
+                </th>
+                <th style="width: 3%">
+                    Category
+                </th>
+                <th style="width: 3%">
+                    Subject
+                </th>
+                <th style="width: 4%">
+                    Department
+                </th>
+                <th style="width: 4%">
+                    Responsible
+                </th>
+                <th style="width: 4%">
+                    Undertaken
+                </th>
+                <th style="width: 15%">
+                    <span>Create Date</span>
+                </th>
+                <th style="width: 10%">
+                    <span>Undertaken Date</span>
+                </th>
+                <th style="width: 10%">
+                    <span>End Date</span>
+                </th>
+                <th style="width: 5%" class="text-center">
+                    Status
+                </th>
+                <th style="width: 5%" class="text-center">
+                    Active
+                </th>
+                @*<th style="width: 7%" class="text-center">
+                        Rating
+                    </th>*@
+                <th style="width: 10%" class="text-center">
+                    Details
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Where(x => x.IsActive == true))
+            {
+
+                <tr>
+                    <td>
+                        @item.Request_Id
+                    </td>
+                    <td>
+
+                        <ul class="list-inline">
+
+                            <li class="list-inline-item">
+                                <img alt="Avatar" class="table-avatar" src="~/MyTheme/dist/img/avatar.png"> <span>@item.User_Name</span>
+                            </li>
+                            @*<li> @item.User_Name</li>*@
+                        </ul>
+                    </td>
+                    <td class="project-state">
+                        <a>
+                            @if (item.Request_Priority_Name=="Yüksek")
+                            {
+                                color = "badge badge-danger";
+                            }@if (item.Request_Priority_Name == "Orta")
+                            {
+                                color = "badge badge-primary";
+                            }@if (item.Request_Priority_Name == "Düşük")
+                            {
+                                color = "badge badge-warning";
+                            }
+                            <span class="@color" style="font-size:16px">@item.Request_Priority_Name</span>
+                        </a>
+                    </td>
+                    <td>
+                        <a>
+                            @item.RequestCategory_Name
+                        </a>
+                    </td>
+                    <td>
+                        @if (item.Request_Subject.Length > 15)
+                        {
+                            <span title="@item.Request_Subject">
+                                @item.Request_Subject.Substring(0, 15)...
+                            </span>
+                        }
+                        else
+                        {
+                            @item.Request_Subject
+                        }
+
+                    </td>
+                    <td>
+                        <a>
+                            @if (item.Department_Id != null)
+                            {
+                                <span>@item.Department_Name</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-secondary" style="font-size:16px">Üstlenilmedi</span>
+                            }
+
+                        </a>
+                    </td>
+                    <td>
+                        <a>
+                            @if (item.Responsible_Id != null)
+                            {
+
+                                @item.Responsible_Name
+                            }
+                            else
+                            {
+                                <span class="badge badge-secondary" style="font-size:16px">Üstlenilmedi</span>
+                            }
+
+                        </a>
+                    </td>
+                    <td>
+                        <a>
+                            @*<span class="badge badge-info" style="font-size:16px">@item.Request_Undertaken</span>*@
+                            @Html.Raw(item.Request_Undertaken == true ? "<span class='badge badge-success' style='font-size:16px' >Üstlenildi</span>" : "<span class='badge badge-secondary' style='font-size:16px'>Üstlenilmedi</span>")
+                        </a>
+                    </td>
+                    <td>
+                        <a>
+                            <span>@(((DateTime)item.Create_Date).ToString("dd MMMMM yyyy-HH:mm"))</span>
+                        </a>
+                    </td>
+                    <td>
+                        <a>
+                            @if (item.Request_Undertaken_Date != null)
+                            {
+                                <span>@(((DateTime)item.Request_Undertaken_Date).ToString("dd MMMMM yyyy-HH:mm"))</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-secondary" style="font-size:16px">Üstlenilmedi</span>
+                            }
+
+                        </a>
+                    </td>
+                    <td>
+                        <a>
+                            @if (item.End_Date != null)
+                            {
+                                <span>@(((DateTime)item.End_Date).ToString("dd MMMMM yyyy-HH:mm"))</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-warning" style="font-size:16px">Henüz Sonuçlanmadı</span>
+                            }
+
+                        </a>
+                    </td>
+                    <td class="project-state">
+                        @if (item.Request_Status != null)
+                        {
+                            @*<span class="badge badge-info" style="font-size:16px">@item.Request_Status</span>*@
+                            @Html.Raw(item.Request_Status == true ? "<span class='badge badge-success' style='font-size:16px' >Çözüldü</span>" : "<span class='badge badge-danger' style='font-size:16px'>Çözülmedi</span>")
+
+                        }
+                        else
+                        {
+                            <span class="badge badge-warning" style="font-size:16px">Çözüm Bekliyor</span>
+                        }
+
+                    </td>
+                    <td class="project-state">
+                        @*<span class="badge badge-info" style="font-size:16px">@item.IsActive</span>*@
+                        @Html.Raw(item.IsActive == true ? "<span class='badge badge-success' style='font-size:16px' >Aktif</span>" : "<span class='badge badge-danger' style='font-size:16px'>Pasif</span>")
+
+                    </td>
+                    @*<td class="project-actions text-right">
+                            <a class="btn btn-danger btn-sm" style="font-size:16px" href="/Message/MessagesByRequest/@item.Request_Id">
+                                <i class="fas fa-star">
+                                </i>
+                                Rate
+                            </a>
+                        </td>*@
+                    <td class="project-actions text-right">
+                        <a class="btn btn-primary btn-sm" style="font-size:16px" href="/Message/MessagesByRequest/@item.Request_Id">
+                            <i class="fas fa-unlock-alt">
+                            </i>
+                            View
+                        </a>
+                    </td>
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@* Datatable ile yapılmıştı ancak text editörle alakalı sorun çıktığından değişmek zorunda kaldım. *@
+@*<table id="example" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Talep Sahibi</th>
+                <th>Önem Seviyesi</th>
+                <th>Durum</th>
+                <th>İlgilenme</th>
+                <th>İlgilenen Departman</th>
+                <th>Açılma Tarihi</th>
+                <th>Üstlenme Tarihi</th>
+                <th>Kapanma Tarihi</th>
+                <th>Aktif</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr data-id="@item.Request_Id">
+                    <td>@item.Request_Id</td>
+                    <td>@item.User.User_Name</td>
+                    <td>@item.Request_Priority</td>
+                    <td>@item.Request_Status</td>
+                    <td>@item.Request_Undertaken</td>
+
+                    @if (item.Department_Id == null)
+                    {
+                        <td>Atanmadı</td>
+                    }
+                    else
+                    {
+                        <td>@item.Department.Department_Name</td>
+                    }
+                    <td>@item.Create_Date</td>
+                    <td>@item.Request_Undertaken_Date</td>
+                    <td>@item.End_Date</td>
+                    <td>@item.IsActive</td>
+
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>ID</th>
+                <th>Talep Sahibi</th>
+                <th>Önem Seviyesi</th>
+                <th>Durum</th>
+                <th>İlgilenme</th>
+                <th>İlgilenen Departman</th>
+                <th>Açılma Tarihi</th>
+                <th>Üstlenme Tarihi</th>
+                <th>Kapanma Tarihi</th>
+                <th>Aktif</th>
+            </tr>
+        </tfoot>
+    </table>*@
+

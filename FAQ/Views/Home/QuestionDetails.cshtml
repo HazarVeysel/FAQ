@@ -1,0 +1,66 @@
+﻿@model FAQ.Models.Questions
+@{
+    Layout = "~/Views/Shared/_IndexLayout.cshtml";
+
+}
+
+
+<div class="baymax p3 line-height-4" id="article-container">
+    <div class="max-width-4 mx-auto">
+        <nav class="lg-flex md-flex items-center justify-between mb3">
+            <ol class="breadcrumbs">
+
+                <li title="Home">
+
+                    <a href="/">Help Center</a>
+
+                </li>
+
+
+                <li title="@Model.Categories.Category_Name">
+
+                    <a href="/">@Model.Categories.Category_Name</a>
+
+                </li>
+
+                <li title="@Model.Question_Title">
+
+                    <a href="/">@Model.Question_Title</a>
+
+                </li>
+
+            </ol>
+
+
+        </nav>
+
+        <div class="container-fluid">
+
+
+
+            <article class="lg-col-12 md-col-12 sm-col-12 xs-col-12">
+                <header class="article-header">
+                    <h1 title="@Model.Question_Details" class="display mb4" style="font-size: 2.5em;">
+                        @Model.Question_Details
+
+                    </h1>
+                </header>
+
+                <section class="article-info">
+                    <div class="article-content">
+                        <div class="article-body">
+                            <p>@Html.Raw(Model.Answer_Content)</p>
+                            @*<p><span style="font-weight: 400;"><iframe src="//www.youtube-nocookie.com/embed/t2gpOXyvCPw" width="560" height="315" frameborder="0" allowfullscreen=""></iframe></span></p>*@
+
+                        </div>
+
+                        @*<div class="article-attachments">
+                                <ul class="attachments">
+                                </ul>
+                            </div>*@
+                    </div>
+                </section>
+            </article>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,200 @@
+﻿@model List<FAQ.Controllers.QuestionCategory>
+@{
+    ViewBag.Title = "AdminPanel";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h1 class="display-3">Questions Management</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+
+                    <a class="btn btn-primary btn-sm" style="font-size:20px" href="/Home/AddNewQuestion" />
+                    <i class="fas fa-pencil-alt"></i>
+                    Add New Question
+                    </a>
+
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<section class="align-content-sm-center">
+    <div class="container-fluid">
+        <div class="card card-info">
+            <div class="card-header">
+                <h3 class="card-title">Questions</h3>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-striped projects">
+                    <thead>
+                        <tr>
+                            <th style="width: 1%">
+                                ID
+                            </th>
+                            <th style="width: 10%">
+                                Category
+                            </th>
+                            <th style="width: 10%">
+                                Question Title
+                            </th>
+                            <th style="width: 30%" class="text-center">
+                                Question Details
+                            </th>
+                            <th style="width: 35%">
+                                Answer
+                            </th>
+                            <th style="width: 15%">
+                                <span>Create Date</span>
+                            </th>
+                            <th style="width: 3%" class="text-nowrap">
+                                Reading Count
+                            </th>
+                            <th style="width: 10%">
+                                Activity
+                            </th>
+
+                            <th style="width: 25%">
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @item.Question_ID
+                                </td>
+                                <td>
+                                    <a>
+                                        @item.Question_Category_Name
+                                    </a>
+                                </td>
+                                <td>
+                                    <a>
+                                        @item.Question_Title
+                                    </a>
+                                </td>
+                                <td class="project-state">
+                                    <a>@item.Question_Details</a>
+                                </td>
+                                <td>
+                                    @if (item.Answer_Content.Length > 30)
+                                    {
+                                        <a>@item.Answer_Content.Substring(0, 30)...</a>
+                                    }
+                                    else
+                                    {
+                                        @Html.Raw(item.Answer_Content)
+                                    }
+                                </td>
+                                <td class="text-nowrap">
+                                    <a>
+                                        <span>@(((DateTime)item.Create_Date).ToString("dd MMMMM yyyy-HH:mm"))</span>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a>
+                                        @item.Reading_Count
+                                    </a>
+                                </td>
+                                <td>
+                                    <span class="badge badge-info" style="font-size:15px" activity>
+                                        @(item.IsActive==true? "Active" : "Passive")
+                                    </span>
+                                </td>
+                                <td class="project-actions text-right text-nowrap">
+
+                                    <a class="btn btn-warning btn-sm" style="font-size:15px" href="/Home/EditQuestion/@item.Question_ID">
+                                        <i class="fas fa-pencil-alt">
+                                        </i>
+                                        Edit
+                                    </a>
+                                    @*@if (item.IsActive == false)
+        {*@
+                                    @*<a class="btn btn-success btn-sm" style="font-size:15px" href="/Home/ActivateQuestion/@item.Question_ID">
+                                        <i class="fas fa-plus">
+                                        </i>
+                                        Activate
+                                    </a>*@
+                                    <a class="btn @(item.IsActive == false ? "btn-success" : "btn-danger") btn-sm" style="font-size:15px; width:6em" data-id="@item.Question_ID" data-isActive="@item.IsActive" buttonActivePassive @*href="/Home/ActivateCategory/@item.Category_ID"*@>
+                                        <i class="fas @(item.IsActive == false ? "fa-plus" : "fa-trash")"></i>
+                                        <span>@(item.IsActive==true? "Passivate" : "Activate")</span>
+                                    </a>
+                                    @*}
+        else
+        {
+            <a class="btn btn-danger btn-sm" style="font-size:15px" href="/Home/PassivateQuestion/@item.Question_ID">
+                <i class="fas fa-trash">
+                </i>
+                Passivate
+            </a>
+        }*@
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+    </div>
+</section>
+
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+
+
+            $("[buttonActivePassive]").click(function () {
+
+
+                var tiklananID = parseInt($(this).data("id"));
+
+                var $butonum = $(this);
+
+
+
+                $.ajax({
+                    url: '/Home/ActivePassiveQuestion',
+                    data: { ID: tiklananID },
+                    type: 'POST',
+                    success: function (response) {
+                        //console.log(response);
+
+
+                        if (response == true) {
+
+                            console.log($butonum.children());
+
+
+                            $butonum.removeClass("btn-success").addClass("btn-danger");
+                            $butonum.find("i").removeClass("fa-plus").addClass("fa-trash");
+                            $butonum.find("span").text("Passivate");
+                            $butonum.parent().prev().find("span").text("Active");
+
+
+                        }
+                        if (response == false) {
+
+                            $butonum.removeClass("btn-danger").addClass("btn-success");
+                            $butonum.find("i").removeClass("fa-trash").addClass("fa-plus");
+                            $butonum.find("span").text(" Activate");
+                            $butonum.parent().prev().find("span").text("Passive");
+
+                        }
+                    }
+                });
+            });
+        })
+    </script>
+    }

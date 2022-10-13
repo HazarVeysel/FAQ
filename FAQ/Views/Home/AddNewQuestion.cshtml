@@ -1,0 +1,53 @@
+﻿@model FAQ.Models.Questions
+@{
+    ViewBag.Title = "Add New Question";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid p-0">
+    <div class="card card-warning card-outline">
+        <div class="card-header mt-1">
+            <h3 class="card-title">Compose New Question</h3>
+        </div>
+        <!-- /.card-header -->
+        @using (Html.BeginForm("AddNewQuestion", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="card-body">
+                <div class="form-group">
+                    @Html.DropDownListFor(x => x.Category_ID, (List<SelectListItem>)ViewBag.vlc, new { @class = "form-control custom-select" })
+
+                </div>
+                <div class="form-group">
+                    @*<input class="form-control" placeholder="Question Title">*@
+                    @Html.TextBoxFor(x => x.Question_Title, new { @class = "form-control", @placeholder = "Question Title" })
+                </div>
+                <div class="form-group">
+                    @*<input class="form-control" placeholder="Question Details">*@
+                    @Html.TextBoxFor(x => x.Question_Details, new { @class = "form-control", @placeholder = "Question Details" })
+                </div>
+                <div class="form-group">
+                    @Html.TextAreaFor(x => x.Answer_Content, new { @class = "form-control", @id = "compose-textarea", @placeholder = "Answer Details" })
+                    
+                </div>
+
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <div class="float-right">
+                    <button type="submit" class="btn btn-success"><i class="fas fa-plus"></i> Create</button>
+                </div>
+                <a class="btn btn-danger btn-sm" style="font-size:15px" href="/Home/AdminQuestions">
+                    <i class="fas fa-backward">
+                    </i>
+                    Back
+                </a>
+            </div>
+        }
+        <!-- /.card-footer -->
+    </div>
+</div>
+
+<!--<script src="../../plugins/summernote/summernote-bs4.min.js"></script>-->
+<!-- AdminLTE for demo purposes -->
+<!--<script src="../../dist/js/demo.js"></script>-->
+<!-- Page specific script -->
